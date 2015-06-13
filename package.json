@@ -1,0 +1,29 @@
+{
+  "name": "drinkr",
+  "version": "0.1.0",
+  "description": "chrome extension to remind regular drinking",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusoelhafen/drinkr.git"
+  },
+  "keywords": [
+    "drink"
+  ],
+  "author": "Markus Ölhafen <oelhafenmarkus@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markusoelhafen/drinkr/issues"
+  },
+  "homepage": "https://github.com/markusoelhafen/drinkr#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browser-sync": "^2.1.3",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "jit-grunt": "^0.9.1"
+  }
+}

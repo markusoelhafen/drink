@@ -1,0 +1,33 @@
+{
+  "name": "Drinkr",
+  "short_name": "Drinkr",
+  "version": "0.3.0",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "description": "Behold the everday struggle of drinking too little.",
+  "author": "Markus &Ouml;lhafen",
+  "homepage_url": "http://markusoelhafen.com",
+  "icons": {
+    "16": "app/icons/icon16.png",
+    "48": "app/icons/icon48.png",
+    "128": "app/icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "app/background.js"
+    ],
+    "persistent": true
+  },
+  "omnibox": { "keyword" : "drinkr" },
+  "browser_action": {
+    "default_icon": "app/icons/icon19.png",
+    "default_title": "Drinkr",
+    "default_popup": "app/index.html"
+  },
+  "permissions": [
+    "notifications",
+    "storage"
+  ],
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+}
