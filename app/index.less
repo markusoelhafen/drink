@@ -5,6 +5,7 @@
 @lightgray: 		#e7e7e7;
 @gray:				#bdbdbd;
 @darkgray:			#757575;
+@black:				#424242;
 @green:				#81c784;
 @darkgreen:			#79ba7c;
 @red:				#f0524f;
@@ -12,6 +13,8 @@
 
 @base-font-size:	14px;
 @base-line-height:	1.4em;
+@mid-font-size:		18px;
+@mid-line-height:	25px;
 
 
 * {
@@ -67,8 +70,8 @@ body {
 		transition-duration: .5s;
 		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
-		.slideup {
-			margin-top: -@height;
+		&.slideup {
+			margin-top: -(@height);
 		}
 
 		#progress {
@@ -103,6 +106,35 @@ body {
 
 	}
 
+	#options {
+		#logo {
+			position: absolute;
+			margin-top: 2px;
+		}
+		#timeOption, #autoStartOption {
+			font-size: @mid-font-size;
+			line-height: @mid-line-height;
+			color: @black;
+			margin: 25px 0;
+		}
+		#timeOption {
+			margin-top: 50px;
+			#minutes {
+				width: 40px;
+				font-size: @mid-font-size;
+				color: @black;
+				border-bottom: 2px solid @black;
+			}
+		}
+		#version, #version a {
+			font-size: @base-font-size;
+			color: @gray;
+			&a:hover {
+				color: @darkgray;
+			}
+		}
+	}
+
 	.btn {
 		width: 200px;
 		position: absolute;
@@ -111,7 +143,7 @@ body {
 		border-radius: 3px;
 		text-align: center;
 		vertical-align: baseline;
-		font-size: @base-font-size; //originally 18px
+		font-size: @mid-font-size; //originally 18px
 		padding: 20px 0;
 		cursor: pointer;
 		bottom: 20px;
