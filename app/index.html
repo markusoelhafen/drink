@@ -4,6 +4,34 @@
 		<link href="index.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
-		<h1>it works!</h1>
+		<div id="content">
+			<button id="optionsButton">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M10 1c1.1 0 2 0.9 2 2s-0.9 2-2 2S8 4.1 8 3S8.9 1 10 1z"/>
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M10 15c1.1 0 2 0.9 2 2s-0.9 2-2 2s-2-0.9-2-2S8.9 15 10 15z"/>
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M10 8c1.1 0 2 0.9 2 2s-0.9 2-2 2s-2-0.9-2-2S8.9 8 10 8z"/>
+				</svg>
+
+			</button>
+			<div id="main">
+				<div id="progress">
+					<g>
+					<svg width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
+ 						<path d="m4,80c0,-41.98895 34.01105,-76 76,-76c41.98895,0 76,34.01105 76,76c0,41.98895 -34.01105,76 -76,76c-41.98895,0 -76,-34.01105 -76,-76z" transform="rotate(90 80,80) " fill="none" stroke="#e7e7e7" stroke-width="8" stroke-miterlimit="0"/>
+  						<path id="progressCircle" d="m4,80c0,-41.98895 34.01105,-76 76,-76c41.98895,0 76,34.01105 76,76c0,41.98895 -34.01105,76 -76,76c-41.98895,0 -76,-34.01105 -76,-76z" transform="rotate(90 80,80) " fill="none" stroke="#7bbc7d" stroke-width="8" stroke-miterlimit="0"/>
+					</svg>
+					</g>
+					<div id="countdown">
+						<div class="text">
+							Alarm in
+							<span id="counter">13</span>
+							<span id="timeUnit" class="time">minutes</span>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-start" id="runToggle">
+				</button>
+			</div>
+		</div>
 	</body>
 </html>
