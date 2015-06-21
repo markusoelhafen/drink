@@ -9,6 +9,13 @@ module.exports = function(grunt) {
         options: {
           nospawn: true
         }
+      },
+      files: {
+        files: ['./*'],
+        tasks: ['copy'],
+        options: {
+          nospawn: true
+        }
       }
     },
     less: {
@@ -23,10 +30,24 @@ module.exports = function(grunt) {
         }
       }
     },
+    copy: {
+      app: {
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['app/index.css', 'app/index.html', 'app/index.js', 'app/background.js'],
+          dest: 'extension/'
+        }, {
+          expand: true,
+          src: ['manifest.json', 'icons/**'],
+          dest: 'extension/'
+        }],
+      },
+    },
     browserSync: {
       dev: {
         bsFiles: {
-          src: ['app/*.css', 'app/*.hmtl', 'app/*.js']
+          src: ['app/*.css', 'app/*.hmtl', 'app/*.js', 'manifest.json']
         },
         options: {
           watchTask: true,
@@ -38,7 +59,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browser-sync');
 
-  grunt.registerTask('default', ['browserSync', 'less', 'watch']);
+  grunt.registerTask('default', ['browserSync', 'less', 'watch', 'copy']);
 };

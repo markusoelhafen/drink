@@ -1,11 +1,13 @@
 var alarmActive, timer;
-var secSet;
+var minSet = 60;
+var secSet = minSet * 60;
 
-// RUN TIMER
+///// RUN TIMER /////
 function run() {
+	countdown(secSet);
 	document.getElementById('runToggle').className = 'btn btn-stop';
+	console.log('starting');
 	alarmActive = true;
-	chrome.runtime.sendMessage({Alarm: 'start'});
 }
 
 function alarm() {
@@ -18,46 +20,61 @@ function stop() {
 	clearInterval(timer);
 	reset(); 
 	alarmActive = false;
+	document.getElementById('runToggle').className = 'btn btn-start';
 	console.log('stopped');
-	chrome.runtime.sendMessage({Alarm: 'stop'});
 }
 
 function reset() {
-	document.getElementById('runToggle').className = 'btn btn-start';
+	document.getElementById('counter').innerHTML = minSet;
 	document.getElementById('timeUnit').innerHTML = 'minutes';
-	drawCounter(secSet);
 	drawCircle(0);
 }
 
-// DRAW COUNTER
-function drawCounter(sec) {
-	var min = Math.ceil(sec / 60);
-	if(sec >= 60) { // if more than 60 seconds –> show minutes
-		document.getElementById('counter').innerHTML = min;
-		if(min > 1){
-				document.getElementById('timeUnit').innerHTML = 'minutes';
+///// DRAW TIMER /////
+function countdown(sec) {
+	var min;
+
+	timer = setInterval(function() {
+		min = Math.ceil(sec / 60);
+		if(sec >= 0) {
+			if(sec >= 60){
+				document.getElementById('counter').innerHTML = min;
+				console.log(min);
+				console.log(sec);
+				if(min > 1){
+					document.getElementById('timeUnit').innerHTML = 'minutes';
+				} else {
+					document.getElementById('timeUnit').innerHTML = 'minute';
+				}
+			} else {
+				document.getElementById('counter').innerHTML = sec;
+				if(sec > 1) {
+					document.getElementById('timeUnit').innerHTML = 'seconds';
+				} else {
+					document.getElementById('timeUnit').innerHTML = 'second';
+				}
+				
+			}
 		} else {
-			document.getElementById('timeUnit').innerHTML = 'minute';
+			clearInterval(timer);
+			alarm();
 		}
-	} else { // else show seconds
-		document.getElementById('counter').innerHTML = sec;
-		if(sec > 1) {
-			document.getElementById('timeUnit').innerHTML = 'seconds';
-		} else {
-			document.getElementById('timeUnit').innerHTML = 'second';
-		}
-	}
+		drawCircle(sec);
+		sec--;
+	}, 100);
 }
 
-// DRAW CIRCLE
-function drawCircle(sec) {
+function drawCircle(time) {
 	var path = document.getElementById('progressCircle');
 	var pathLength = path.getTotalLength();
-	var position = map(sec, secSet, 0, 0, pathLength);
+	var position = map(time, secSet, 0, 0, pathLength);
+	//if (position > pathLength) position = pathLength;
 
 	path.style.transition = path.style.WebkitTransition = 'none';
+
 	path.style.strokeDasharray = pathLength + ' ' + pathLength;
 	path.style.strokeDashoffset = position;
+
 	path.getBoundingClientRect();
 }
 
@@ -65,24 +82,9 @@ function map(value, start1, stop1, start2, stop2) {
 	return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 }
 
-// LISTEN TO BACKGROUND
-chrome.runtime.onMessage.addListener(function(request){
-	if(request.seconds) {
-		drawCircle(request.seconds);
-		drawCounter(request.seconds);
-		alarmActive = true;
-		document.getElementById('runToggle').className = 'btn btn-stop';
-	}
-});
-
 // ON STARTUP
 onload = function() {
-
-	chrome.storage.sync.get({secSet: '3600'}, function(options) {
-		secSet = options.secSet;
-		console.log('secSet: ' + secSet);
-		reset();
-	});
+	reset();
 
 	document.getElementById('runToggle').addEventListener('click', function() {
 		if (alarmActive == true) stop();

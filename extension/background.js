@@ -1,4 +1,4 @@
-var secSet, autoStart;
+var secSet;
 
 // COUNTDOWN
 
@@ -33,9 +33,8 @@ function syncOptions() {
 		autoStart: false
 	}, function(options) {
 		secSet = options.secSet;
-		autoStart = options.autoStart;
 		console.log("seconds set: " + secSet);
-		console.log("auto-start: " + autoStart);
+		console.log("auto-start: " + options.autoStart);
 	});
 }
 
