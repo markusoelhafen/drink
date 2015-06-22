@@ -65,6 +65,29 @@ function map(value, start1, stop1, start2, stop2) {
 	return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
 }
 
+// SAVE OPTIONS
+function saveOptions() {
+	var min = document.getElementById('minutes').value;
+	var auto = document.getElementById('autoStart').value;
+
+	chrome.storage.sync.set({
+		secSet: min * 60
+	});
+	chrome.runtime.sendMessage({Options: 'saved'});
+}
+
+function readOptions() {
+	chrome.storage.sync.get({
+		secSet: '3600',
+		autoStart: false
+	}, function(options) {
+		document.getElementById('minutes').value = options.secSet / 60;
+		document.getElementById('counter').innerHTML = options.secSet / 60;
+		secSet = options.secSet;
+	});
+	stop();
+}
+
 // LISTEN TO BACKGROUND
 chrome.runtime.onMessage.addListener(function(request){
 	if(request.seconds) {
@@ -78,11 +101,7 @@ chrome.runtime.onMessage.addListener(function(request){
 // ON STARTUP
 onload = function() {
 
-	chrome.storage.sync.get({secSet: '3600'}, function(options) {
-		secSet = options.secSet;
-		console.log('secSet: ' + secSet);
-		reset();
-	});
+	readOptions();
 
 	document.getElementById('runToggle').addEventListener('click', function() {
 		if (alarmActive == true) stop();
@@ -90,6 +109,8 @@ onload = function() {
 	});
 
 	document.getElementById('saveOptions').addEventListener('click', function() {
+		saveOptions(); // save settings to local storage
+		readOptions(); // restore options set to display changed time on popup
 		document.getElementById('main').classList.toggle('slideup');
 	});
 

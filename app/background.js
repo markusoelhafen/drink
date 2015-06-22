@@ -8,7 +8,13 @@ function run(){
 }
 
 function stop(){
-	clearInterval(timer);
+	try{
+		clearInterval(timer);
+	}catch(e){
+		//console.log(e);
+		console.log(no timer defined..)
+	}
+	clearNotification();
 	console.log("stopping countdown");
 }
 
@@ -19,10 +25,60 @@ function countdown(sec) {
 		chrome.runtime.sendMessage({seconds: sec});
 		} else {
 			clearInterval(timer);
-			console.log("countdown finished");
+			timer = false;
+			createNotification();
 		}
 		sec--;
 	}, 100);
+}
+
+// NOTIFICATIONS
+
+function buttonClicked(notId, button) { // buttonIndex: 0 = ok || 1 = shut up
+	if (button == 0) {
+		clearInterval(updateLoop);
+		clearNotification();
+		run();
+	}
+	else if (button == 1) {
+		stop();
+	}
+}
+
+function createNotification() {
+	var opt = {
+		type: "basic",
+		title: "IT'S TIME TO DRINK!",
+		message: "Drink some water now.",
+		iconUrl: "../icons/popup_icon.png",
+		priority: 2,
+		buttons: [{
+			title: "Ok, done. Restart."
+		}, {
+			title: "Shut up!"
+		}]
+	};
+	chrome.notifications.create("popup", opt);
+	updateNotification();
+}
+
+function updateNotification() { // update every 3 minutes
+	updateLoop = setInterval(function() {
+		chrome.notifications.update("popup", {priority: 0}, function() {
+			chrome.notifications.update("popup", {priority: 2});
+		});
+	}, 180000);
+}
+
+function clearNotification() { // clear all notifications
+	chrome.notifications.getAll(function(cb) {
+		for(var prop in cb){
+			if(cb.hasOwnProperty(prop)) {
+				//console.log(prop, cb[prop]);
+				chrome.notifications.clear(prop);
+			}
+		}
+	});
 }
 
 // SYNC OPTIONS
@@ -46,6 +102,10 @@ chrome.runtime.onMessage.addListener(function(request){
 		run();
 	} else if(request.Alarm == 'stop'){
 		stop();
+		console.log('stopped bg')
+	} else if(request.Options == 'saved') {
+		syncOptions();
+		console.log('synced bg')
 	}
 })
 
@@ -53,4 +113,5 @@ chrome.runtime.onMessage.addListener(function(request){
 
 onload = function() {
 	syncOptions();
+	chrome.notifications.onButtonClicked.addListener(buttonClicked);
 }
