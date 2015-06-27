@@ -1,4 +1,4 @@
-var alarmActive, timer, secSet;
+var alarmActive, timer, secondsSet;
 
 // RUN TIMER
 function run() {
@@ -24,9 +24,9 @@ function stop() {
 function reset() {
 	document.getElementById('runToggle').className = 'btn btn-start';
 	document.getElementById('timeUnit').innerHTML = 'minutes';
-	console.log("function reset: secSet" + secSet);
-	drawCounter(secSet);
-	drawCircle(secSet);
+	console.log("function reset: secondsSet" + secondsSet);
+	drawCounter(secondsSet);
+	drawCircle(secondsSet);
 }
 
 // DRAW COUNTER
@@ -53,7 +53,7 @@ function drawCounter(sec) {
 function drawCircle(sec) {
 	var path = document.getElementById('progressCircle');
 	var pathLength = path.getTotalLength();
-	var position = map(sec, secSet, 0, 0, pathLength);
+	var position = map(sec, secondsSet, 0, 0, pathLength);
 
 	path.style.transition = path.style.WebkitTransition = 'none';
 	path.style.strokeDasharray = pathLength + ' ' + pathLength;
@@ -68,17 +68,21 @@ function map(value, start1, stop1, start2, stop2) {
 // SAVE OPTIONS
 function saveOptions() {
 	var min = document.getElementById('minutes').value;
-	var auto = document.getElementById('autoStart').value;
+	var auto = document.getElementById('autoStart').checked;
 
-	chrome.storage.sync.set({secSet: min * 60});
+	chrome.storage.sync.set({secondsSet: min * 60, autoStart: auto});
 	chrome.runtime.sendMessage({Options: 'saved'});
 }
 
 function readOptions() {
-	chrome.storage.sync.get({secSet: '3600', autoStart: false}, function(options) {
-		document.getElementById('minutes').value = options.secSet / 60;
-		document.getElementById('counter').innerHTML = options.secSet / 60;
-		secSet = options.secSet;
+	chrome.storage.sync.get({secondsSet: '3600', autoStart: false}, function(options) {
+		document.getElementById('minutes').value = options.secondsSet / 60;
+		document.getElementById('counter').innerHTML = options.secondsSet / 60;
+		secondsSet = options.secondsSet;
+
+		if(options.autoStart == true) {
+			document.getElementById('autoStart').checked = true;
+		}
 	});
 }
 
@@ -95,6 +99,8 @@ chrome.runtime.onMessage.addListener(function(response){
 // ON STARTUP
 onload = function() {
 
+	readOptions();
+
 	chrome.runtime.sendMessage({Alarm: 'state'}, function(response) {
 		if(response.seconds !== false) {
 			drawCircle(response.seconds);
@@ -103,7 +109,6 @@ onload = function() {
 			document.getElementById('runToggle').className = 'btn btn-stop';
 		}
 	});
-	readOptions();
 
 	document.getElementById('runToggle').addEventListener('click', function() {
 		if (alarmActive == true) stop();
