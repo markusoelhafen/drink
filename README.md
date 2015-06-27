@@ -1,6 +1,6 @@
 # Drinkr Chrome Extension
 
-Drinkr is a simple chrome extension to remind you to drink enough during the day. Once started the extension will show a chrome notification.
+Drinkr is a simple chrome extension to remind you to drink enough during the day. Once started, the extension will show a chrome notification.
 
 Timespan between notifications can be specified in a simple options panel.
 
@@ -9,6 +9,9 @@ Timespan between notifications can be specified in a simple options panel.
 Go to Chrome's Tools -> Extensions then click "Load unpacked extension...". Then click on Launch to get it working.
 
 ## Changelog
+
+### v.0.4.0
+* omnibox control implemented
 
 ### v0.3.0
 * new design
@@ -19,4 +22,4 @@ Go to Chrome's Tools -> Extensions then click "Load unpacked extension...". Then
 
 ### v0.1.2 
 * control drinkr from omnibox
-* type "Drinkr" &#xf105; press Space/Tab &#xf105; type "start" or "stop"
+* type "Drinkr" -> press Space/Tab -> type "start" or "stop"
