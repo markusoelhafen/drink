@@ -1,5 +1,4 @@
-var alarmActive, timer;
-var secSet;
+var alarmActive, timer, secSet;
 
 // RUN TIMER
 function run() {
@@ -25,8 +24,9 @@ function stop() {
 function reset() {
 	document.getElementById('runToggle').className = 'btn btn-start';
 	document.getElementById('timeUnit').innerHTML = 'minutes';
+	console.log("function reset: secSet" + secSet);
 	drawCounter(secSet);
-	drawCircle(0);
+	drawCircle(secSet);
 }
 
 // DRAW COUNTER
@@ -35,7 +35,7 @@ function drawCounter(sec) {
 	if(sec >= 60) { // if more than 60 seconds –> show minutes
 		document.getElementById('counter').innerHTML = min;
 		if(min > 1){
-				document.getElementById('timeUnit').innerHTML = 'minutes';
+			document.getElementById('timeUnit').innerHTML = 'minutes';
 		} else {
 			document.getElementById('timeUnit').innerHTML = 'minute';
 		}
@@ -70,29 +70,23 @@ function saveOptions() {
 	var min = document.getElementById('minutes').value;
 	var auto = document.getElementById('autoStart').value;
 
-	chrome.storage.sync.set({
-		secSet: min * 60
-	});
+	chrome.storage.sync.set({secSet: min * 60});
 	chrome.runtime.sendMessage({Options: 'saved'});
 }
 
 function readOptions() {
-	chrome.storage.sync.get({
-		secSet: '3600',
-		autoStart: false
-	}, function(options) {
+	chrome.storage.sync.get({secSet: '3600', autoStart: false}, function(options) {
 		document.getElementById('minutes').value = options.secSet / 60;
 		document.getElementById('counter').innerHTML = options.secSet / 60;
 		secSet = options.secSet;
 	});
-	stop();
 }
 
 // LISTEN TO BACKGROUND
-chrome.runtime.onMessage.addListener(function(request){
-	if(request.seconds) {
-		drawCircle(request.seconds);
-		drawCounter(request.seconds);
+chrome.runtime.onMessage.addListener(function(response){
+	if(response.seconds) {
+		drawCircle(response.seconds);
+		drawCounter(response.seconds);
 		alarmActive = true;
 		document.getElementById('runToggle').className = 'btn btn-stop';
 	}
@@ -101,6 +95,14 @@ chrome.runtime.onMessage.addListener(function(request){
 // ON STARTUP
 onload = function() {
 
+	chrome.runtime.sendMessage({Alarm: 'state'}, function(response) {
+		if(response.seconds !== false) {
+			drawCircle(response.seconds);
+			drawCounter(response.seconds);
+			alarmActive = true;
+			document.getElementById('runToggle').className = 'btn btn-stop';
+		}
+	});
 	readOptions();
 
 	document.getElementById('runToggle').addEventListener('click', function() {

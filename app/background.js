@@ -1,4 +1,5 @@
 var secSet, autoStart;
+var currentSec = false;
 
 // COUNTDOWN
 
@@ -11,25 +12,30 @@ function stop(){
 	try{
 		clearInterval(timer);
 	}catch(e){
-		//console.log(e);
-		console.log(no timer defined..)
+		console.log("no timer defined..");
 	}
 	clearNotification();
 	console.log("stopping countdown");
 }
 
-function countdown(sec) {
+function countdown(seconds) {
+	currentSec = seconds;
+	// timer = setInterval(function() {
+	// 	if(currentSec >= 0) {
+	// 		console.log("seconds: " + currentSec);
+	// 		chrome.runtime.sendMessage({seconds: currentSec});
+	// 	} else {
+	// 		clearInterval(timer);
+	// 		currentSec = false;
+	// 		createNotification();
+	// 	}
+	// 	currentSec--;
+	// }, 1000);
+
 	timer = setInterval(function() {
-		if(sec >= 0) {
-			console.log("seconds: " + sec);
-		chrome.runtime.sendMessage({seconds: sec});
-		} else {
-			clearInterval(timer);
-			timer = false;
-			createNotification();
-		}
-		sec--;
-	}, 100);
+		currentSec >= 0 ? chrome.runtime.sendMessage({seconds: currentSec}); : clearInterval(timer); currentSec = false; createNotification();
+		currentSec--;
+	}, 1000);
 }
 
 // NOTIFICATIONS
@@ -67,7 +73,7 @@ function updateNotification() { // update every 3 minutes
 		chrome.notifications.update("popup", {priority: 0}, function() {
 			chrome.notifications.update("popup", {priority: 2});
 		});
-	}, 180000);
+	}, 180 * 1000);
 }
 
 function clearNotification() { // clear all notifications
@@ -97,7 +103,7 @@ function syncOptions() {
 
 // LISTEN TO CONTENT
 
-chrome.runtime.onMessage.addListener(function(request){
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	if(request.Alarm == 'start') {
 		run();
 	} else if(request.Alarm == 'stop'){
@@ -106,6 +112,8 @@ chrome.runtime.onMessage.addListener(function(request){
 	} else if(request.Options == 'saved') {
 		syncOptions();
 		console.log('synced bg')
+	} else if(request.Alarm == 'state') {
+		sendResponse({seconds: currentSec});
 	}
 })
 
