@@ -58,7 +58,7 @@ body {
 		}
 	}
 
-	#main, #options {
+	#main, #options, #changelog {
 		position: relative;
 		width: @width;
 		height: @height;
@@ -72,6 +72,9 @@ body {
 
 		&.slideup {
 			margin-top: -(@height);
+		}
+		&.changelog {
+			margin-top: -(@height * 2);
 		}
 
 		#progress {
@@ -126,11 +129,33 @@ body {
 				border-bottom: 2px solid @black;
 			}
 		}
-		#version, #version a {
+		#version, #new {
 			font-size: @base-font-size;
 			color: @gray;
-			&a:hover {
+		}
+		#new {
+			cursor: pointer;
+			background: none;
+			&:hover {
 				color: @darkgray;
+			}
+		}
+	}
+
+	#changelog {
+		overflow-y: scroll;
+		h2 {
+			color: @black;
+		}
+		h4 {
+			font-size: @mid-font-size;
+			color: @black;
+			padding-top: 20px;
+			& + ul > li {
+				list-style: disc outside none;
+				color: @darkgray;
+				padding-top: 5px;
+				margin-left: 15px;
 			}
 		}
 	}
