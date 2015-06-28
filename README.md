@@ -1,6 +1,6 @@
-# Drinkr Chrome Extension
+# Drink! Chrome Extension
 
-Drinkr is a simple chrome extension to remind you to drink enough during the day. Once started, the extension will show a chrome notification.
+Drink! is a simple chrome extension to remind you to drink enough during the day. Once started, the extension will show a chrome notification.
 
 Timespan between notifications can be specified in a simple options panel.
 

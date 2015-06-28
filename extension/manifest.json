@@ -1,6 +1,6 @@
 {
-  "name": "Drinkr",
-  "short_name": "Drinkr",
+  "name": "Drink",
+  "short_name": "Drink",
   "version": "0.3.0",
   "manifest_version": 2,
   "description": "Behold the everday struggle of drinking too little.",
@@ -17,10 +17,10 @@
     ],
     "persistent": true
   },
-  "omnibox": { "keyword" : "drinkr" },
+  "omnibox": { "keyword" : "drink" },
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "Drinkr",
+    "default_title": "Drink",
     "default_popup": "index.html"
   },
   "permissions": [
