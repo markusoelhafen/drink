@@ -105,6 +105,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	} 
 })
 
+// VERSION UPDATE NOTIFICATION
+
+chrome.runtime.onInstalled.addListener(function(installed) {
+	console.log(installed);
+	if(installed.reason == "update") {
+		var opt = {
+			type: "basic",
+			title: "Drink!",
+			message: "Drink! has been updated.",
+			iconUrl: "../icons/popup_icon.png",
+			priority: 1
+		}
+		chrome.notifications.create("update", opt);
+	}
+});
+
 // ON LOAD
 
 onload = function() {
