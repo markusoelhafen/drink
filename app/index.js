@@ -122,9 +122,7 @@ onload = function() {
 	});
 
 	document.getElementById('optionsButton').addEventListener('click', function() {
-		//if(document.getElementById('main').classList.contains('changelog')) {
 			if(document.getElementById('main').classList.contains('changelog')) {
-				console.log('what');
 				document.getElementById('main').classList.remove('changelog', 'slideup');
 			} else {
 			document.getElementById('main').classList.toggle('slideup');
