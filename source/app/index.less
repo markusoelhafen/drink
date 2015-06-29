@@ -1,0 +1,201 @@
+@width: 			240px;
+@height:			308px;
+
+@white:				#ffffff;
+@lightgray: 		#e7e7e7;
+@gray:				#bdbdbd;
+@darkgray:			#757575;
+@black:				#424242;
+@green:				#81c784;
+@darkgreen:			#79ba7c;
+@red:				#f0524f;
+@darkred:			#e34d4b;
+
+@base-font-size:	14px;
+@base-line-height:	1.4em;
+@mid-font-size:		18px;
+@mid-line-height:	25px;
+
+/*this is just a grunt testsdfsdf*/
+* {
+	padding: 0; margin: 0; border: none;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	&:focus {
+		outline: none;
+	}
+}
+
+body {
+	background: @white;
+	font-size: @base-font-size; 
+	line-height: @base-line-height;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-touch-callout: none;
+}
+
+#content {
+	position: relative;
+	width: @width;
+	height: @height;
+	overflow: hidden;
+	border: 2px solid @lightgray;
+
+	#optionsButton {
+		position: absolute;
+		top: 20px;
+		right: 12px;
+		fill: @gray;
+		background: transparent;
+		cursor: pointer;
+		z-index: 2;
+		&:hover {
+			fill: @darkgray;
+		}
+	}
+
+	#main, #options, #changelog {
+		position: relative;
+		width: @width;
+		height: @height;
+		box-sizing: border-box;
+		padding: 20px;
+	}
+	#main {
+		transition-property: all;
+		transition-duration: .5s;
+		transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+
+		&.slideup {
+			margin-top: -(@height);
+		}
+		&.changelog {
+			margin-top: -(@height * 2);
+		}
+
+		#progress {
+			position: relative;
+			width: 160px;
+			height: 160px;
+			margin: 20px auto;
+
+			#countdown {
+				position: absolute;
+				width: 144px;
+				height: 144px;
+				top: 0;
+				margin: 8px;
+				border-radius: 50%;
+				background: @white;
+
+				.text {
+					color: @darkgray;
+					font-size: @base-font-size; //original 16px;
+					text-align: center;
+					margin-top: 34px;
+
+					#counter {
+						font-size: 40px;
+						display: block;
+						margin: 14px;
+					}
+				}
+			}
+		}
+
+	}
+
+	#options {
+		#logo {
+			position: absolute;
+			margin-top: 2px;
+		}
+		#timeOption, #autoStartOption {
+			font-size: @mid-font-size;
+			line-height: @mid-line-height;
+			color: @black;
+			margin: 25px 0;
+		}
+		#timeOption {
+			margin-top: 50px;
+			#minutes {
+				width: 40px;
+				font-size: @mid-font-size;
+				color: @black;
+				border-bottom: 2px solid @black;
+			}
+		}
+		#version, #new {
+			font-size: @base-font-size;
+			color: @gray;
+		}
+		#new {
+			cursor: pointer;
+			background: none;
+			&:hover {
+				color: @darkgray;
+			}
+		}
+	}
+
+	#changelog {
+		overflow-y: scroll;
+		h2 {
+			color: @black;
+		}
+		h4 {
+			font-size: @mid-font-size;
+			color: @black;
+			padding-top: 20px;
+			& + ul > li {
+				list-style: disc outside none;
+				color: @darkgray;
+				padding-top: 5px;
+				margin-left: 15px;
+			}
+		}
+	}
+
+	.btn {
+		width: 200px;
+		position: absolute;
+		margin-top: 10px;
+		color: @white;
+		border-radius: 3px;
+		text-align: center;
+		vertical-align: baseline;
+		font-size: @mid-font-size; //originally 18px
+		padding: 20px 0;
+		cursor: pointer;
+		bottom: 20px;
+
+		&.btn-start {
+			background: @green;
+			&:before {
+				content: "Let's go!";
+			}
+			&:hover {
+				background: @darkgreen;
+			}
+		}
+		&.btn-stop {
+			background: @red;
+			&:before {
+				content: "Stop it!";
+			}
+			&:hover {
+				background: @darkred;
+			}
+		}
+		&.btn-gray {
+			background: @gray;
+			&:hover {
+				background: @darkgray;
+			}
+		}
+	}
+}

@@ -10,8 +10,14 @@ Go to Chrome's Tools -> Extensions then click "Load unpacked extension...". Then
 
 ## Changelog
 
-### v.0.4.0
+### v0.3.3
 * omnibox control implemented
+
+### v0.3.2
+* added changing icon to show alarm status
+
+### v0.3.1
+* added extension update notification
 
 ### v0.3.0
 * new design

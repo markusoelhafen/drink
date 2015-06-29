@@ -112,8 +112,8 @@ chrome.runtime.onInstalled.addListener(function(installed) {
 	if(installed.reason == "update") {
 		var opt = {
 			type: "basic",
-			title: "Drink!",
-			message: "Drink! has been updated.",
+			title: "Drink! Update",
+			message: "Drink! has been updated to a newer version.",
 			iconUrl: "../icons/popup_icon.png",
 			priority: 1
 		}
