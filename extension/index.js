@@ -72,6 +72,7 @@ function saveOptions() {
 
 	chrome.storage.sync.set({secondsSet: min * 60, autoStart: auto});
 	chrome.runtime.sendMessage({Options: 'saved'});
+	stop();
 }
 
 function readOptions() {
