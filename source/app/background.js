@@ -4,6 +4,7 @@ var secondsSet, autoStart, currentSeconds = false;
 
 function run(){
 	countdown(secondsSet);
+	chrome.browserAction.setIcon('/icons/icon19_active.png');
 	console.log("starting countdown");
 }
 
@@ -15,6 +16,7 @@ function stop(){
 	}
 	currentSeconds = false;
 	clearNotification();
+	chrome.browserAction.setIcon('/icons/icon19.png');
 	console.log("stopping countdown");
 }
 
