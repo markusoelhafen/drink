@@ -71,7 +71,8 @@ function updateNotification() { // update every 60 seconds
 		chrome.notifications.update("popup", {priority: 0}, function() {
 			chrome.notifications.update("popup", {priority: 2});
 		});
-	}, 60000);
+		console.log("updated");
+	}, 10000);
 }
 
 function clearNotification() { // clear all notifications
