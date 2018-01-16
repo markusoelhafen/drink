@@ -31,7 +31,7 @@ function countdown(seconds) {
 			// currentSeconds = false;
 			stop();
 			playAudio();
-			createNotification();	
+			createNotification();
 			updateNotification();
 		}
 		currentSeconds--;
