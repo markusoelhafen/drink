@@ -1,7 +1,7 @@
 {
   "name": "Drink",
   "short_name": "Drink",
-  "version": "0.3.2",
+  "version": "0.4.1",
   "minimum_chrome_version": "29",
   "manifest_version": 2,
   "description": "Behold the everday struggle of drinking too little.",
