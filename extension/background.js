@@ -30,8 +30,8 @@ function countdown(seconds) {
 			// clearInterval(timer);
 			// currentSeconds = false;
 			stop();
-			createNotification();
 			playAudio();
+			createNotification();	
 			updateNotification();
 		}
 		currentSeconds--;
@@ -68,8 +68,8 @@ function createNotification() {
 }
 
 function playAudio() {
-	var drop = new Audio('drop.mp3');
-	drop.play();
+	var drip = new Audio('drip.mp3');
+	drip.play();
 }
 
 function updateNotification() { // update every 60 seconds
