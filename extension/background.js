@@ -31,6 +31,7 @@ function countdown(seconds) {
 			// currentSeconds = false;
 			stop();
 			createNotification();
+			playAudio();
 			updateNotification();
 		}
 		currentSeconds--;
@@ -62,8 +63,13 @@ function createNotification() {
 		}, {
 			title: "Shut up!"
 		}]
-	};
+	};	
 	chrome.notifications.create("popup", opt);
+}
+
+function playAudio() {
+	var drop = new Audio('drop.mp3');
+	drop.play();
 }
 
 function updateNotification() { // update every 60 seconds

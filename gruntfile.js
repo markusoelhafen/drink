@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                 'source/app/index.html', 
                 'source/app/index.js', 
                 'source/app/background.js',
+                'source/app/drop.mp3',
                 'source/manifest.json'
           ],
           dest: 'extension/'
