@@ -30,8 +30,8 @@ function countdown(seconds) {
 			// clearInterval(timer);
 			// currentSeconds = false;
 			stop();
+			createNotification();
 			playAudio();
-			createNotification();	
 			updateNotification();
 		}
 		currentSeconds--;
